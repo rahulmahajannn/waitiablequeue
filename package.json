@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@bull-board/api": "^4.2.2",
+    "@bull-board/express": "^4.2.2",
+    "body-parser": "^1.20.0",
+    "bull": "^4.9.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "mongoose": "^6.6.0",
+    "nodemailer": "^6.7.8"
+  }
+}
