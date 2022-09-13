@@ -1,8 +1,5 @@
 const {waitableQueue} = require('./queue')
-const {sendMail} = require("../emailMiddleware");
-const {jobModel} = require('../model/job')
-const obj ={}
-
+const {obj} = require('../obj')
 const dispatchFunctionAndWait = async (mailTo, subject, body) => {
     const job = await waitableQueue.add({
         params: {
@@ -16,22 +13,17 @@ const dispatchFunctionAndWait = async (mailTo, subject, body) => {
     })
 }
 
-waitableQueue.process(async (jobData) => {
-    const jobParams = jobData.data.params
-    const hello = await sendMail(jobParams.mailTo, jobParams.subject, jobParams.body)
-    return hello
-})
-
 waitableQueue.on('global:completed', async (jobId) => {
     if(obj.hasOwnProperty(jobId)) {
         const jobData = await waitableQueue.getJob(jobId)
-        obj[jobId][0](jobData.returnvalue)
+        obj[jobId][0](`${jobId} ${jobData.returnvalue}`)
     }
 })
 
-waitableQueue.on('global:failed', (jobId) => {
+waitableQueue.on('global:failed', async (jobId) => {
     if(obj.hasOwnProperty(jobId)) {
-        obj[jobId][1](`rejected ${jobId}`)
+        const jobData = await waitableQueue.getJob(jobId)
+        obj[jobId][0](`${jobId} ${jobData.returnvalue}`)
     }
 })
 

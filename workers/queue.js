@@ -18,24 +18,4 @@ const { addQueue, removeQueue, setQueues, replaceQueues } = createBullBoard({
     serverAdapter: serverAdapter,
 });
 
-// waitableQueue.process((job) => {
-//     console.log(typeof job.data.functionName)
-//     // throw new Error('something wend wrong')
-//     return job.data
-// })
-//
-// waitableQueue.on('global:completed', (jobId) => {
-//     // console.log('yha', jobId)
-//     // obj.JobId == jobId
-//     if(jobId == obj.Jobid) {
-//         // obj.jobId[0]()
-//     }
-//     resolve()
-//
-// })
-//
-// waitableQueue.on('global:failed', (jobId) => {
-//     console.log('etho?', jobId)
-// })
-
 module.exports = {waitableQueue, serverAdapter}
